@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="testme">TestMe</string>
+    <string name="user_authentica">   USER AUTHENTICA   </string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="login_instruction">Enter your email address and</string>
+    <string name="login_instruction_two">password to access your account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="need_account">Dont\'t have an account?</string>
+    <string name="back">Back</string>
+    <string name="name">Name</string>
+    <string name="mobile">Enter mobile number</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="have_account">Already have an account?</string>
+
+    <style name="hint">#CD708295</style>
 </resources>

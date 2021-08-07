@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def nav_version = "2.3.5"
     def lifecycle_version = "2.4.0-alpha02"
     def arch_version = "2.1.0"
@@ -76,7 +77,6 @@ dependencies {
     /**LiveData**/
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
-
     /**Fragment**/
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
 
@@ -87,7 +87,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-
     /**Dialog**/
     implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'com.afollestad.material-dialogs:bottomsheets:3.2.1'
@@ -95,6 +94,9 @@ dependencies {
 
     /**Picasso**/
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    /**Circular Image**/
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 }
