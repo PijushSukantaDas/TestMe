@@ -1,7 +1,6 @@
 package com.silverblaze.myapplication.data.source
 
-import com.silverblaze.myapplication.data.models.SingUp
-import com.silverblaze.myapplication.data.models.Users
+import com.silverblaze.myapplication.data.models.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -14,9 +13,9 @@ interface DataService {
 
     @Multipart
     @POST("signup")
-    suspend fun addOrSignup(
-        @Part profile_image: MultipartBody.Part,
-        @Part("name") name: HashMap<String, RequestBody>,
+    suspend fun signup(
+        @Part profile_image : MultipartBody.Part,
+        @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
         @Part("latitude") latitude: RequestBody,
         @Part("longitude") longitude: RequestBody,
@@ -24,14 +23,39 @@ interface DataService {
         @Part("phone") phone: RequestBody,
         @Part("password") password: RequestBody,
         @Part("password_confirmation") password_confirmation: RequestBody
-
     ) : Response<SingUp>
+
+    @FormUrlEncoded
+    @POST("login")
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ) : Response<Login>
+
+
+    @GET("user/{id}")
+    suspend fun profile(
+        @Path(value = "id", encoded = false)
+        id : Int,
+    ) : Response<Profile>
 
     @Multipart
     @POST("signup")
-    suspend fun register(
+    suspend fun addNewUser(
         @Part profile_image : MultipartBody.Part,
-        @PartMap map :  HashMap<String , RequestBody>
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("latitude") latitude: RequestBody,
+        @Part("longitude") longitude: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("password_confirmation") password_confirmation: RequestBody
+    ) : Response<NewUser>
 
-    ) : Response<SingUp>
+    @GET("user/delete/{id}")
+    suspend fun delete(
+        @Path(value = "id", encoded = false)
+        id : Int,
+    ) : Response<Delete>
 }

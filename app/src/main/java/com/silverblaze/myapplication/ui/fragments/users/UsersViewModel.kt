@@ -1,17 +1,21 @@
 package com.silverblaze.myapplication.ui.fragments.users
 
 import androidx.lifecycle.*
+import com.silverblaze.myapplication.data.models.Delete
+import com.silverblaze.myapplication.data.models.Profile
 import com.silverblaze.myapplication.data.models.User
 import com.silverblaze.myapplication.data.models.Users
 import com.silverblaze.myapplication.domain.ProfileUseCase
 import com.silverblaze.myapplication.utils.Event
 import com.silverblaze.myapplication.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +35,9 @@ class UsersViewModel @Inject constructor(private val profileUseCase: ProfileUseC
 
     private val _users = MutableStateFlow<Resource<Users>>(Resource.loading(null))
     val users : StateFlow<Resource<Users>>  = _users
+
+    private val _deleteUser = MutableLiveData<Response<Delete>>()
+    val deleteUser : LiveData<Response<Delete>> = _deleteUser
 
     fun usersList() {
         viewModelScope.launch {
@@ -66,6 +73,12 @@ class UsersViewModel @Inject constructor(private val profileUseCase: ProfileUseC
         }
 
         return false
+    }
+
+    fun deleteUser(id : Int) {
+        viewModelScope.launch(Dispatchers.Main){
+            _deleteUser.value = profileUseCase.delete(id)
+        }
     }
 
 }

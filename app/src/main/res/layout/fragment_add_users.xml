@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.silverblaze.myapplication.ui.fragments.users.UsersViewModel" />
+            type="com.silverblaze.myapplication.ui.fragments.auth.AuthViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,6 +89,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameField"
                     android:text="@={viewModel.name}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -111,6 +112,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailField"
                     android:text="@={viewModel.email}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -134,6 +136,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/email">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordField"
                     android:text="@={viewModel.password}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -156,6 +159,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mobileField"
                     android:text="@={viewModel.mobile}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

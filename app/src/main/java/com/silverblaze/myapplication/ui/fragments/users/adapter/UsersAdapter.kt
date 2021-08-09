@@ -9,11 +9,11 @@ import com.silverblaze.myapplication.data.models.User
 import com.silverblaze.myapplication.databinding.UserCardLayoutBinding
 import com.squareup.picasso.Picasso
 
-class UsersAdapter(private val userList : List<User>) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
+class UsersAdapter(private val userList : List<User>, private val listener: UserListener) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     class UserViewHolder(private val binding: UserCardLayoutBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(user: User) {
+        fun bind(user: User, listener: UserListener, position: Int) {
             binding.name.text = user.name
             binding.email.text = user.email
             if (user.profile_image.isNotEmpty()){
@@ -22,6 +22,10 @@ class UsersAdapter(private val userList : List<User>) : RecyclerView.Adapter<Use
                     .fit()
                     .centerCrop()
                     .into(binding.image)
+            }
+
+            binding.removeBtn.setOnClickListener {
+                listener.deleteUser(user, position)
             }
         }
 
@@ -33,7 +37,7 @@ class UsersAdapter(private val userList : List<User>) : RecyclerView.Adapter<Use
     }
 
     override fun onBindViewHolder(holder: UsersAdapter.UserViewHolder, position: Int) {
-        holder.bind(userList[position])
+        holder.bind(userList[position], listener,position)
     }
 
     override fun getItemCount() = userList.size

@@ -1,5 +1,6 @@
 package com.silverblaze.myapplication.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.silverblaze.myapplication.R
+import com.silverblaze.myapplication.ui.activity.AppActivity
+import com.silverblaze.myapplication.utils.Preference
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,7 +35,15 @@ class SplashFragment : Fragment() {
             override fun run() {
                 try{
                     sleep(2000)
-                    findNavController().navigate(R.id.action_splashFragment_to_signingOption)
+                    val email = Preference(requireContext()).getString("email")
+                    val password = Preference(requireContext()).getString("password")
+
+                    if(!email.isNullOrEmpty() && !password.isNullOrEmpty()){
+                        startActivity(Intent(requireContext(), AppActivity::class.java))
+                    }else{
+                        findNavController().navigate(R.id.action_splashFragment_to_signingOption)
+                    }
+
                 }catch (e : Exception){
                     e.printStackTrace()
                 }

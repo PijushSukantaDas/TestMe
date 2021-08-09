@@ -22,4 +22,26 @@ class AuthUseCase @Inject constructor(private val apiRepository: ApiRepository) 
         password,
         image
     )
+
+    fun addNewUser(
+        name: String,
+        email: String,
+        mobile: String,
+        latitude: String,
+        longitude: String,
+        password: String,
+        image : File
+    )  = apiRepository.addNewUser(
+        name,
+        email,
+        mobile,
+        latitude,
+        longitude,
+        password,
+        image
+    )
+
+    fun login(email: String,password: String) = apiRepository.login(email,password)
+
+
 }

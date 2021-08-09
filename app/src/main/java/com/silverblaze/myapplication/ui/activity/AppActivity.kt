@@ -25,5 +25,11 @@ class AppActivity : AppCompatActivity() {
         binding.profileBtn.setOnClickListener {
             findNavController(R.id.nav_host_app_fragment).navigate(R.id.profileFragment)
         }
+
+        binding.exitBtn.setOnClickListener {
+            finishAffinity()
+        }
+
+
     }
 }
