@@ -32,7 +32,7 @@ class SplashFragment : Fragment() {
             override fun run() {
                 try{
                     sleep(2000)
-
+                    findNavController().navigate(R.id.action_splashFragment_to_signingOption)
                 }catch (e : Exception){
                     e.printStackTrace()
                 }

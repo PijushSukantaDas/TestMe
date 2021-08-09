@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id "kotlin-kapt"
-    id "dagger.hilt.android.plugin"
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -36,6 +36,7 @@ android {
     buildFeatures {
         dataBinding true
     }
+
 }
 
 dependencies {
@@ -97,6 +98,14 @@ dependencies {
 
     /**Circular Image**/
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    /**Retrofit**/
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
+
+    /**Location**/
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
 
 }

@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.silverblaze.myapplication.R
+import com.silverblaze.myapplication.databinding.FragmentSigningOptionBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SigningOption : Fragment() {
 
+    lateinit var binding : FragmentSigningOptionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +25,20 @@ class SigningOption : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signing_option, container, false)
+        binding = FragmentSigningOptionBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.loginBtn.setOnClickListener {
+            findNavController().navigate(R.id.loginFragment)
+        }
+        binding.registerBtn.setOnClickListener {
+            findNavController().navigate(R.id.registrationFragment)
+        }
+
     }
 
 }

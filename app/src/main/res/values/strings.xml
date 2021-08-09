@@ -17,6 +17,21 @@
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="have_account">Already have an account?</string>
+    <string name="profile">Profile</string>
+    <string name="phone">Phone</string>
+    <string name="creted_date">Creation Date</string>
+    <string name="user">User</string>
+    <string name="exit">Exit</string>
+    <string name="user_list">Users List</string>
+    <string name="total_users">Total Users</string>
+    <string name="total_value">Total Value</string>
+    <string name="add_user">Add New User</string>
+    <string name="search">Search</string>
+    <string name="save">save</string>
+    <string name="remove">remove</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="cancel">cancel</string>
+    <string name="confirm">Confirm</string>
 
     <style name="hint">#CD708295</style>
 </resources>

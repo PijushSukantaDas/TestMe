@@ -1,64 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/slpashFragment">
+    app:startDestination="@id/profileFragment">
+
     <fragment
-        android:id="@+id/slpashFragment"
-        android:name="com.silverblaze.myapplication.ui.fragments.SlpashFragment"
-        android:label="fragment_slpash"
-        tools:layout="@layout/fragment_splash" >
-        <action
-            android:id="@+id/action_slpashFragment_to_signingOption"
-            app:destination="@id/signingOption" />
-    </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.silverblaze.myapplication.ui.fragments.auth.RegistrationFragment"
-        android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
-    <fragment
-        android:id="@+id/signingOption"
-        android:name="com.silverblaze.myapplication.ui.fragments.auth.SigningOption"
-        android:label="fragment_signing_option"
-        tools:layout="@layout/fragment_signing_option" >
-        <action
-            android:id="@+id/action_signingOption_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_signingOption_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.silverblaze.myapplication.ui.fragments.auth.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.silverblaze.myapplication.ui.fragments.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_usersFragment"
-            app:destination="@id/usersFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_addUsersFragment"
-            app:destination="@id/addUsersFragment" />
-    </fragment>
+        android:id="@+id/addUsersFragment"
+        android:name="com.silverblaze.myapplication.ui.fragments.users.AddUsersFragment"
+        android:label="fragment_add_users"
+        tools:layout="@layout/fragment_add_users" />
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.silverblaze.myapplication.ui.fragments.users.UsersFragment"
         android:label="fragment_users"
         tools:layout="@layout/fragment_users" />
     <fragment
-        android:id="@+id/addUsersFragment"
-        android:name="com.silverblaze.myapplication.ui.fragments.users.AddUsersFragment"
-        android:label="fragment_add_users"
-        tools:layout="@layout/fragment_add_users" />
+        android:id="@+id/profileFragment"
+        android:name="com.silverblaze.myapplication.ui.fragments.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_addUsersFragment"
+            app:destination="@id/addUsersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+    </fragment>
 </navigation>
