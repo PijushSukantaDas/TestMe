@@ -46,6 +46,10 @@ android {
             enable true
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 
 }
 
