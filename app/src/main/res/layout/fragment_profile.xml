@@ -110,7 +110,7 @@
 
             <TextView
                 android:id="@+id/date"
-                android:text="@{viewModel.created}"
+                android:text="@{String.valueOf(viewModel.created)}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -124,7 +124,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -136,7 +136,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
-        </LinearLayout>
+            <com.here.sdk.mapviewlite.MapViewLite
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

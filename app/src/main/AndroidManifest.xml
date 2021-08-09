@@ -30,7 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <meta-data android:name="com.here.sdk.access_key_id" android:value="Bg6fzlRrKA-Fz6bWbS0Wlw" />
+        <meta-data android:name="com.here.sdk.access_key_secret" android:value="DBsxAZ-n6xkooZyD6HR_8JQec5wPGE2G4dDef377ydoUYOTWP2h4wJIPjylDnWnyiNGoSo2SBhpWGuJqzJ8glA" />
+
+    </application>
 
 </manifest>

@@ -1,8 +1,8 @@
 package com.silverblaze.myapplication.ui.fragments.users
 
+import android.text.Editable
 import androidx.lifecycle.*
 import com.silverblaze.myapplication.data.models.Delete
-import com.silverblaze.myapplication.data.models.Profile
 import com.silverblaze.myapplication.data.models.User
 import com.silverblaze.myapplication.data.models.Users
 import com.silverblaze.myapplication.domain.ProfileUseCase
@@ -20,6 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(private val profileUseCase: ProfileUseCase): ViewModel(){
+    var list = MutableLiveData<List<User>>()
     var name = MutableLiveData<String>()
     var email = MutableLiveData<String>()
     var password = MutableLiveData<String>()
@@ -79,6 +80,18 @@ class UsersViewModel @Inject constructor(private val profileUseCase: ProfileUseC
         viewModelScope.launch(Dispatchers.Main){
             _deleteUser.value = profileUseCase.delete(id)
         }
+    }
+
+    fun getSearchList(editable: Editable?): ArrayList<User> {
+        val list = arrayListOf<User>()
+        editable?.let {
+            this.list.value?.map {
+                if (it.name.startsWith(editable.toString())){
+                    list.add(it)
+                }
+            }
+        }
+        return list
     }
 
 }

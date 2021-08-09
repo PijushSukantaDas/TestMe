@@ -71,18 +71,24 @@ class AddUsersFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getLatLong()
 
         binding.profileImage.setOnClickListener {
-            permissionAccess()
+            chooseImageGallery()
+        }
+
+        if(binding.male.isChecked){
+            binding.female.isChecked = false
+        }else if(binding.female.isChecked){
+            binding.male.isChecked = false
         }
 
         binding.saveBtn.setOnClickListener {
-            if(viewModel.validation()){
+            if(viewModel.validation() && (binding.male.isChecked || binding.female.isChecked)){
                 setData()
-                Toast.makeText(requireContext()," Name :${viewModel.latitude.value}",Toast.LENGTH_SHORT).show()
                 addNewUser()
+            }else if(binding.male.isChecked || binding.female.isChecked){
+                Toast.makeText(requireContext(),"Please Select Gender", Toast.LENGTH_SHORT).show()
             }else{
                showErrorMessage()
             }
@@ -99,8 +105,6 @@ class AddUsersFragment : Fragment() {
 
     private fun addNewUser() {
         viewModel.addNewUser(createFile())
-
-        Toast.makeText(requireContext(),createFile().toString(), Toast.LENGTH_SHORT).show()
 
         lifecycleScope.launch {
             viewModel.newUser.collect {
@@ -140,7 +144,7 @@ class AddUsersFragment : Fragment() {
         when(requestCode){
             RegistrationFragment.PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    chooseImageGallery()
+
                 }else{
                     Toast.makeText(requireContext(),"Permission denied", Toast.LENGTH_SHORT).show()
                     permissionAccess()
@@ -155,12 +159,10 @@ class AddUsersFragment : Fragment() {
 
             Log.i("imageUri","${data?.data}")
             imageUri = data?.data
-//            dialogBinding.foodImageView.setImageURI(data?.data)
+
             setImage(imageUri)
 
-
             viewModel.imagePath.value = imageUri?.path
-            Toast.makeText(requireContext(),imageUri?.path, Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(requireContext(),"$resultCode", Toast.LENGTH_SHORT).show()
         }
@@ -174,7 +176,7 @@ class AddUsersFragment : Fragment() {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) -> {
                 // You can use the API that requires the permission.
-                chooseImageGallery();
+
             }
             ContextCompat.checkSelfPermission(
                 requireContext(),

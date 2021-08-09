@@ -133,6 +133,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/text_field_background"

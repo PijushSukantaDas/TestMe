@@ -81,15 +81,24 @@ class RegistrationFragment : Fragment() {
 
         binding.profileImage.setOnClickListener {
             permissionAccess()
+            chooseImageGallery()
+        }
+
+        if(binding.male.isChecked){
+            binding.female.isChecked = false
+        }else if(binding.female.isChecked){
+            binding.male.isChecked = false
         }
 
         binding.signUpBtn.setOnClickListener {
-            if(viewModel.validation()){
+            if(viewModel.validation() && (binding.male.isChecked || binding.female.isChecked)){
                 getLatLong()
                 setData()
-                Toast.makeText(requireContext()," Name :${viewModel.latitude.value}",Toast.LENGTH_SHORT).show()
                 registerUser()
-            }else{
+            }else if(!binding.male.isChecked || !binding.female.isChecked){
+                Toast.makeText(requireContext(),"Please Select Gender", Toast.LENGTH_SHORT).show()
+            }
+            else{
                 showErrorMessage()
             }
         }
@@ -104,8 +113,6 @@ class RegistrationFragment : Fragment() {
 
     private fun registerUser() {
         viewModel.signUp(createFile())
-
-        Toast.makeText(requireContext(),createFile().toString(), Toast.LENGTH_SHORT).show()
 
         lifecycleScope.launch {
             viewModel.signUp.collect {
@@ -153,7 +160,7 @@ class RegistrationFragment : Fragment() {
         when(requestCode){
             PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    chooseImageGallery()
+
                 }else{
                     Toast.makeText(requireContext(),"Permission denied", Toast.LENGTH_SHORT).show()
                     permissionAccess()
@@ -187,7 +194,7 @@ class RegistrationFragment : Fragment() {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) -> {
                 // You can use the API that requires the permission.
-                chooseImageGallery();
+
             }
             ContextCompat.checkSelfPermission(
                 requireContext(),

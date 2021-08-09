@@ -1,5 +1,6 @@
 package com.silverblaze.myapplication.ui.fragments.profile
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +13,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.silverblaze.myapplication.R
 import com.silverblaze.myapplication.data.models.Profile
 import com.silverblaze.myapplication.databinding.FragmentProfileBinding
 import com.silverblaze.myapplication.utils.Preference
@@ -24,6 +24,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.here.sdk.core.GeoCoordinates
+
+import com.here.sdk.mapviewlite.MapScene
+
+import com.here.sdk.mapviewlite.MapStyle
+import com.here.sdk.mapviewlite.MapMarkerImageStyle
+
+import com.here.sdk.mapviewlite.MapMarker
+
+import android.R
+
+import com.here.sdk.mapviewlite.MapImageFactory
+
+import com.here.sdk.mapviewlite.MapImage
+import com.silverblaze.myapplication.utils.formatDateToString
+import com.silverblaze.myapplication.utils.formatStringToDate
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -51,6 +70,10 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+
+        binding.mapView.onCreate(savedInstanceState)
+        loadMapScene()
+
         return binding.root
     }
 
@@ -63,9 +86,6 @@ class ProfileFragment : Fragment() {
 
         getProfile(profileId)
 
-        Toast.makeText(requireContext(),profileId,Toast.LENGTH_SHORT).show()
-
-
         viewModel.profileData.observe(viewLifecycleOwner, Observer {
             val response = it.body()
             if(response?.meta?.status == 200){
@@ -77,6 +97,7 @@ class ProfileFragment : Fragment() {
             }
         })
 
+
     }
 
     private fun getProfile(profileId: String?) {
@@ -86,7 +107,6 @@ class ProfileFragment : Fragment() {
 
     private fun setProfileDetails(data: Profile?) {
         data?.let {
-            CoroutineScope(Dispatchers.Main).launch {
                 Preference(requireContext()).addString("id", it.response.user_data.id.toString())
                 Preference(requireContext()).addString("email", it.response.user_data.email)
                 Preference(requireContext()).addString("password", it.response.user_data.password)
@@ -110,12 +130,51 @@ class ProfileFragment : Fragment() {
                     .centerCrop()
                     .into(binding.profileImage)
 
-
-            }
-
-
         }
     }
 
+    fun formatStringToDate(date : String): Date {
+        val format = "dd/MM/yyyy hh:mm aaa"
+        val simpleDateFormat = SimpleDateFormat(format)
+        val dateString = simpleDateFormat.format(date)
+        val date = simpleDateFormat.parse(date)
 
+        return  date
+    }
+
+    private fun loadMapScene() {
+        var lat = Preference(requireContext()).getString("latitude")
+        var long = Preference(requireContext()).getString("longitude")
+        // Load a scene from the SDK to render the map with a map style.
+        val coordinates = GeoCoordinates(lat?.toDouble()?:00.0, long?.toDouble()?:0.0)
+
+        binding.mapView.mapScene.loadScene(
+            MapStyle.NORMAL_DAY,
+            MapScene.LoadSceneCallback { errorCode ->
+                if (errorCode == null) {
+
+                    binding.mapView.getCamera().setTarget(coordinates)
+                    binding.mapView.getCamera().setZoomLevel(15.0)
+
+                } else {
+                    Log.d(TAG, "onLoadScene failed: $errorCode")
+                }
+            })
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mapView.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.mapView.onDestroy()
+    }
 }

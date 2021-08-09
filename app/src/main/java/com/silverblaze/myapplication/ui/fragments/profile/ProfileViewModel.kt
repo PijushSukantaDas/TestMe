@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,6 +47,17 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main){
             _profileData.value = profileUseCase.profile(id)
         }
+    }
+
+    fun created(): Date? {
+        if(!created.value.isNullOrEmpty()){
+            val format = "dd/MM/yy hh:mm aaa"
+            val simpleDateFormat = SimpleDateFormat(format)
+            val date = simpleDateFormat.parse(created.value)
+
+            return  date
+        }
+        return null
     }
 
 

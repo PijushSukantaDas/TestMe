@@ -34,11 +34,13 @@ class SplashFragment : Fragment() {
         val background = object : Thread(){
             override fun run() {
                 try{
-                    sleep(2000)
+                    sleep(1000)
+
                     val email = Preference(requireContext()).getString("email")
                     val password = Preference(requireContext()).getString("password")
 
                     if(!email.isNullOrEmpty() && !password.isNullOrEmpty()){
+
                         startActivity(Intent(requireContext(), AppActivity::class.java))
                     }else{
                         findNavController().navigate(R.id.action_splashFragment_to_signingOption)

@@ -1,6 +1,5 @@
 package com.silverblaze.myapplication.ui.fragments.users
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,10 +21,8 @@ import com.silverblaze.myapplication.databinding.DialogDeleteLayoutBinding
 import com.silverblaze.myapplication.databinding.FragmentUsersBinding
 import com.silverblaze.myapplication.ui.fragments.users.adapter.UserListener
 import com.silverblaze.myapplication.ui.fragments.users.adapter.UsersAdapter
-import com.silverblaze.myapplication.utils.Resource
 import com.silverblaze.myapplication.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
@@ -69,6 +67,14 @@ class UsersFragment : Fragment(), UserListener {
             findNavController().navigate(R.id.addUsersFragment)
         }
 
+        binding.search.addTextChangedListener {
+            if(viewModel.list.value?.size?:0 >0){
+                adapter = UsersAdapter(viewModel.getSearchList(it),this)
+                binding.recyclerView.adapter = adapter
+                adapter.notifyDataSetChanged()
+            }
+        }
+
     }
 
     private fun setUserList() {
@@ -78,6 +84,7 @@ class UsersFragment : Fragment(), UserListener {
                 when(it.status){
                     Status.SUCCESS->{
                         var response = it.data
+                        viewModel.list.value = response?.response?.user_list?: listOf()
                         adapter = UsersAdapter(response?.response?.user_list?: listOf(),this@UsersFragment)
                         binding.recyclerView.adapter = adapter
                         adapter.notifyDataSetChanged()

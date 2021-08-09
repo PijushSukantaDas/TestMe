@@ -10,7 +10,7 @@ import com.silverblaze.myapplication.databinding.ActivityAppBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AppActivity : AppCompatActivity() {
+class AppActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityAppBinding>(
